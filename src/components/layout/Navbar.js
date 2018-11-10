@@ -1,27 +1,23 @@
 import React, { Component } from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton
-} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import { Container, Grid, Divider } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 import "./Navbar.css";
 
 class Navbar extends Component {
   render() {
     return (
-      <div className="root">
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className="grow" variant="h6" color="inherit">
-              FanFicer
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <Container>
+        <Grid padded>
+          <Grid.Column floated='left'>Fanfic</Grid.Column>
+          <Grid.Column floated='right'>
+            <Button icon labelPosition='left' floated='right'>
+              <Icon name='user' />
+              Login
+            </Button>
+          </Grid.Column>
+        </Grid>
+        <Divider fitted />
+      </Container>
     );
   }
 }
