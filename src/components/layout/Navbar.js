@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Container, Grid, Divider } from 'semantic-ui-react'
-import { Button, Icon } from 'semantic-ui-react'
+import { Container, Grid, Divider } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -8,10 +8,14 @@ class Navbar extends Component {
     return (
       <Container>
         <Grid padded>
-          <Grid.Column floated='left'>Fanfic</Grid.Column>
-          <Grid.Column floated='right'>
-            <Button icon labelPosition='left' floated='right'>
-              <Icon name='user' />
+          <Grid.Column floated="left">
+            <Button icon labelPosition="left" floated="left" secondary>
+              <Icon name="book" />
+              Ficcer
+            </Button>
+          </Grid.Column>
+          <Grid.Column floated="right">
+            <Button floated="right" primary>
               Login
             </Button>
           </Grid.Column>
