@@ -21,6 +21,6 @@ $ yarn install
 
 ##### Inicialização
 ```
-$ npm start
+$ yarn start
 ```
 A aplicação será executada no endereço:  `http://localhost:3000/`
