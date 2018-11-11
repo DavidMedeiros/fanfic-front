@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Divider } from "semantic-ui-react";
 import { Button, Icon } from "semantic-ui-react";
-import "./Navbar.css";
+import "./Navbar.scss";
 
 class Navbar extends Component {
   render() {
@@ -9,13 +9,7 @@ class Navbar extends Component {
       <div>
         <Grid padded>
           <Grid.Column floated="left">
-            <Button
-              icon
-              color="purple"
-              labelPosition="left"
-              floated="left"
-              color="violet"
-            >
+            <Button icon labelPosition="left" floated="left" color="violet">
               <Icon name="book" />
               Ficcer
             </Button>
@@ -26,7 +20,7 @@ class Navbar extends Component {
             </Button>
           </Grid.Column>
         </Grid>
-        <Divider fitted />
+        <Divider fitted hidden />
       </div>
     );
   }

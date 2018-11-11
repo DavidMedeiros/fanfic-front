@@ -1,0 +1,17 @@
+.App {
+  background-color: #343233;
+
+  .full-height {
+    display: flex;
+    min-height: -webkit-fill-available;
+    flex-direction: column;
+  }
+}
+
+.content {
+  flex: 1;
+}
+
+.white-text {
+  color: #f7f5d8;
+}

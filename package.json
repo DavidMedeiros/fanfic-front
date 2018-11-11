@@ -1,10 +1,13 @@
 {
-  "name": "fanfic-front",
+  "name": "Ficcer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "node-sass": "^4.10.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
     "semantic-ui-react": "^0.83.0"
   },
