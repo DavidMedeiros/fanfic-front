@@ -11,16 +11,14 @@ O :ledger: Ficcer :ledger: é uma plataforma web onde usuários podem compartilh
 
 > NodeJS
 
-> Yarn
-
 > MongoDB
 
 ```
-$ yarn install
+$ npm install
 ```
 
 ##### Inicialização
 ```
-$ yarn start
+$ npm start
 ```
 A aplicação será executada no endereço:  `http://localhost:3000/`
