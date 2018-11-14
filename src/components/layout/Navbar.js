@@ -6,8 +6,8 @@ import "./Navbar.scss";
 class Navbar extends Component {
   render() {
     return (
-      <div>
-        <Grid padded>
+      <div className="navbar">
+        <Grid>
           <Grid.Column floated="left">
             <Button icon labelPosition="left" floated="left" color="violet">
               <Icon name="book" />
@@ -20,7 +20,7 @@ class Navbar extends Component {
             </Button>
           </Grid.Column>
         </Grid>
-        <Divider fitted hidden />
+        <Divider hidden />
       </div>
     );
   }

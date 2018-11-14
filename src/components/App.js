@@ -5,6 +5,7 @@ import "./App.scss";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import Home from "./Home";
+import Fic from "./Fic";
 
 class App extends Component {
   render() {
@@ -13,7 +14,7 @@ class App extends Component {
         <Container>
           <Navbar />
           <div className="full-height">
-            <Home />
+            <Fic />
           </div>
           <Footer />
         </Container>
