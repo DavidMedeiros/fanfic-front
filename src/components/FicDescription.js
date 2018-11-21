@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Header, Container, Label, Statistic, Icon } from "semantic-ui-react";
+import { Header, Container, Label, Statistic, Icon, Rating } from "semantic-ui-react";
 import "./FicDescription.scss";
 import Moment from "moment";
 
@@ -9,6 +9,12 @@ export default class FicDescription extends Component {
     super(props);
 
     this.state = { fic: props.data };
+    this.favFic = this.favFic.bind(this);
+  }
+
+  favFic(e, rating) {
+    console.log('rating', rating);
+    // Do fav fic request
   }
 
   render() {
@@ -22,6 +28,7 @@ export default class FicDescription extends Component {
               <Icon name="gay" />
               <Label.Detail>{fic.category}</Label.Detail>
             </Label>
+            <Rating className="fav-fic" icon='star' size='huge' onRate={this.favFic} />
             <Statistic floated="right" inverted color="violet" size="tiny">
               <Statistic.Value>{fic.views}</Statistic.Value>
               <Statistic.Label>Views</Statistic.Label>
@@ -29,16 +36,16 @@ export default class FicDescription extends Component {
           </Header>
 
           <p className="italic-text">{fic.synopsis}</p>
-
-          <p>
-            {fic.genre.map(genre => {
-              return (
-                <Label basic color="gray">
-                  {genre}
-                </Label>
-              );
-            })}
-          </p>
+          
+          {fic.genre.map((genre, i) => {
+            return (
+              <Label basic color="grey" key={i}>
+                {genre}
+              </Label>
+            );
+          })}
+          
+          <p></p>
 
           <Label basic color="violet">
             Length
