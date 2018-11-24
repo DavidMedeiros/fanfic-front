@@ -175,7 +175,7 @@ class App extends Component {
         username: "shakepaulinha",
         email: "shakepaulinha@test.com",
         gender: "male",
-        birthdate: "1996-01-18",
+        birthday: "1996-01-18",
         created_at: "2018-11-14T01:01:48.300Z",
         profile_name: "shakepaulinha",
         social: {

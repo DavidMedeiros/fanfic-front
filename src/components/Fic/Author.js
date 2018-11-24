@@ -63,7 +63,7 @@ export default class Author extends Component {
           </Header>
 
           <p>
-            {moment().diff(author.birthdate, "years")} anos
+            {moment().diff(author.birthday, "years")} years old
             <Icon name={gender.name} color={gender.color} inverted />
           </p>
 
