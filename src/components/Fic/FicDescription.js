@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 
-import { Header, Container, Label, Statistic, Icon, Rating } from "semantic-ui-react";
+import {
+  Header,
+  Container,
+  Label,
+  Statistic,
+  Icon,
+  Rating
+} from "semantic-ui-react";
 import "./FicDescription.scss";
 import Moment from "moment";
 
@@ -13,7 +20,7 @@ export default class FicDescription extends Component {
   }
 
   favFic(e, rating) {
-    console.log('rating', rating);
+    console.log("rating", rating);
     // Do fav fic request
   }
 
@@ -24,11 +31,12 @@ export default class FicDescription extends Component {
         <Container text>
           <Header color="violet" textAlign="left" as="h2" inverted>
             {fic.title}
-            <Label color="violet">
-              <Icon name="gay" />
-              <Label.Detail>{fic.category}</Label.Detail>
-            </Label>
-            <Rating className="fav-fic" icon='star' size='huge' onRate={this.favFic} />
+            <Rating
+              className="fav-fic"
+              icon="star"
+              size="huge"
+              onRate={this.favFic}
+            />
             <Statistic floated="right" inverted color="violet" size="tiny">
               <Statistic.Value>{fic.views}</Statistic.Value>
               <Statistic.Label>Views</Statistic.Label>
@@ -36,7 +44,12 @@ export default class FicDescription extends Component {
           </Header>
 
           <p className="italic-text">{fic.synopsis}</p>
-          
+
+          <Label color="violet">
+            <Icon name="gay" />
+            <Label.Detail>{fic.category}</Label.Detail>
+          </Label>
+
           {fic.genre.map((genre, i) => {
             return (
               <Label basic color="grey" key={i}>
@@ -44,14 +57,14 @@ export default class FicDescription extends Component {
               </Label>
             );
           })}
-          
-          <p></p>
 
-          <Label basic color="violet">
+          <p />
+
+          <Label color="violet">
             Length
             <Label.Detail>1542</Label.Detail>
           </Label>
-          <Label color="violet">
+          <Label basic color="violet">
             Created at
             <Label.Detail>
               {Moment(fic.created_at).format("DD/MM/YYYY")}

@@ -74,7 +74,7 @@ export default class Author extends Component {
           >
             <Statistic color="purple" inverted>
               <Statistic.Value>
-                <Icon name="book" size="small" /> {author.stats.fics}
+                <Icon name="book" size="small" /> {author._fics.length}
               </Statistic.Value>
               <Statistic.Label className="statistic-label">
                 Fics
@@ -82,7 +82,7 @@ export default class Author extends Component {
             </Statistic>
             <Statistic color="green" inverted>
               <Statistic.Value>
-                <Icon name="browser" size="small" /> {author.stats.chapters}
+                <Icon name="browser" size="small" /> {author._chapters.length}
               </Statistic.Value>
               <Statistic.Label className="statistic-label">
                 Chapters
@@ -90,7 +90,7 @@ export default class Author extends Component {
             </Statistic>
             <Statistic color="yellow" inverted>
               <Statistic.Value>
-                <Icon name="star" size="small" /> {author.stats.favorites}
+                <Icon name="star" size="small" /> {author.fav_fics.length}
               </Statistic.Value>
               <Statistic.Label className="statistic-label">
                 Favs
