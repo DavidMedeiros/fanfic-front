@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import { Router, Link } from "react-router-dom";
 
 import { Grid, Divider, Menu } from "semantic-ui-react";
@@ -6,14 +7,22 @@ import { Button, Icon, Input } from "semantic-ui-react";
 import "./Navbar.scss";
 
 class Navbar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = { activeItem: "home" };
+    let location = "";
+    if (props.location.pathname === "/profile") {
+      location = "profile";
+    } else if (props.location.pathname === "/") {
+      location = "home";
+    }
+
+    this.state = { activeItem: location };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
     return (
       <div className="navbar">
@@ -21,7 +30,7 @@ class Navbar extends Component {
           <Grid.Column width={4}>
             <Button
               icon
-              name="Home"
+              name="home"
               labelPosition="left"
               floated="left"
               color="violet"
@@ -36,24 +45,21 @@ class Navbar extends Component {
           <Grid.Column width={12}>
             <Menu inverted secondary floated="right">
               <Menu.Item
-                name="Home"
+                name="home"
                 color="violet"
-                active={this.state.activeItem === "Home"}
+                active={this.state.activeItem === "home"}
                 onClick={this.handleItemClick}
                 as={Link}
                 to={"/"}
               />
               <Menu.Item
-                name="Profile"
+                name="profile"
                 color="violet"
-                active={this.state.activeItem === "Profile"}
+                active={this.state.activeItem === "profile"}
                 onClick={this.handleItemClick}
                 as={Link}
                 to="/profile"
               />
-              <Menu.Item>
-                <Input icon="search" placeholder="Search..." />
-              </Menu.Item>
               <Menu.Item
                 name="Logout"
                 color="violet"
@@ -72,4 +78,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
