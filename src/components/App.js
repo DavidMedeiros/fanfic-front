@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
 import { Container } from "semantic-ui-react";
 import "./App.scss";
 
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
-import Home from "./Home";
-import Fic from "./Fic";
+import Home from "./Home/Home";
+import Fic from "./Fic/Fic";
+import Profile from "./Profile/Profile";
 
 class App extends Component {
   render() {
@@ -180,7 +183,44 @@ class App extends Component {
           twitter: "shakepaulinha",
           instagram: "paul0viniciuss"
         },
-        stats: { fics: 12, chapters: 87, favorites: 20 },
+        _fics: ["1", "2", "3", "4", "5", "8"],
+        _chapters: [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "8",
+          "1",
+          "11",
+          "111",
+          "5",
+          "5",
+          "7",
+          "7",
+          "7",
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        fav_fics: [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "8",
+          "5",
+          "5",
+          "7",
+          "7",
+          "7",
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
         __v: 0
       },
       created_at: "2018-11-14T01:02:34.964Z",
@@ -189,13 +229,20 @@ class App extends Component {
 
     return (
       <div className="App white-text">
-        <Container>
-          <Navbar />
-          <div className="full-height">
-            <Fic data={fic} />
-          </div>
-          <Footer />
-        </Container>
+        <BrowserRouter>
+          <Container>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/profile" component={Profile} />
+              <Route
+                path="/fic"
+                render={props => <Fic data={fic} {...props} />}
+              />
+            </Switch>
+            <Footer />
+          </Container>
+        </BrowserRouter>
       </div>
     );
   }
