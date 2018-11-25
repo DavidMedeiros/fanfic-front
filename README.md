@@ -21,4 +21,4 @@ $ npm install
 ```
 $ npm start
 ```
-A aplicação será executada no endereço:  `http://localhost:5000/`
+A aplicação será executada no endereço:  `http://localhost:3000/`
