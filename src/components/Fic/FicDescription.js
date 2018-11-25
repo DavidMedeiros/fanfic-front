@@ -15,8 +15,41 @@ export default class FicDescription extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { fic: props.data };
+    this.state = {
+      fic: props.data,
+      favoritable: props.favoritable,
+      showGenres: props.showGenres
+    };
     this.favFic = this.favFic.bind(this);
+  }
+
+  showFavStar(favoritable) {
+    let starFav = <div />;
+    if (favoritable)
+      starFav = (
+        <Rating
+          className="fav-fic"
+          icon="star"
+          size="huge"
+          onRate={this.favFic}
+        />
+      );
+
+    return starFav;
+  }
+
+  showGenresLabels(showGenres, fic) {
+    let genresEl = <div />;
+    if (showGenres)
+      genresEl = fic.genre.map((genre, i) => {
+        return (
+          <Label basic color="grey" key={i}>
+            {genre}
+          </Label>
+        );
+      });
+
+    return genresEl;
   }
 
   favFic(e, rating) {
@@ -26,17 +59,13 @@ export default class FicDescription extends Component {
 
   render() {
     let fic = this.state.fic;
+
     return (
       <div>
         <Container text>
           <Header color="violet" textAlign="left" as="h2" inverted>
             {fic.title}
-            <Rating
-              className="fav-fic"
-              icon="star"
-              size="huge"
-              onRate={this.favFic}
-            />
+            {this.showFavStar(this.state.favoritable)}
             <Statistic floated="right" inverted color="violet" size="tiny">
               <Statistic.Value>{fic.views}</Statistic.Value>
               <Statistic.Label>Views</Statistic.Label>
@@ -50,13 +79,7 @@ export default class FicDescription extends Component {
             <Label.Detail>{fic.category}</Label.Detail>
           </Label>
 
-          {fic.genre.map((genre, i) => {
-            return (
-              <Label basic color="grey" key={i}>
-                {genre}
-              </Label>
-            );
-          })}
+          {this.showGenresLabels(this.state.showGenres, fic)}
 
           <p />
 

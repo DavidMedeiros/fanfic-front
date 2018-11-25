@@ -1,0 +1,34 @@
+.sort-menu {
+  a {
+    padding: 0.5rem 0.75rem !important;
+  }
+}
+
+.transparent-box {
+  background: transparent !important;
+}
+.violet-shadow {
+  box-shadow: 0 1px 3px 0 #9d8cf2, 0 0 0 1px #9d8cf2 !important;
+}
+
+.dark-card {
+  .header {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .meta {
+    color: rgba(255, 255, 255, 0.7) !important;
+
+    .author {
+      color: #917fee !important;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .description {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-style: italic;
+  }
+}

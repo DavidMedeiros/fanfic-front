@@ -15,8 +15,7 @@ const colors = [
   "violet",
   "purple",
   "pink",
-  "brown",
-  "grey"
+  "brown"
 ];
 
 export default class FicsCategoriesAndGenres extends Component {
@@ -57,9 +56,9 @@ export default class FicsCategoriesAndGenres extends Component {
 
   getColor(index) {
     if (this.state.type === "categories") {
-      return colors[index % 12];
+      return colors[index % 11];
     } else {
-      return colors[(index + this.state.data.length) % 12];
+      return colors[(index + this.state.data.length) % 11];
     }
   }
 
@@ -69,7 +68,7 @@ export default class FicsCategoriesAndGenres extends Component {
         <Loader active={this.state.isLoading} inverted />
         <Container>
           {this.state.data.map((data, i) => (
-            <Button key={i} compact color={this.getColor(i)}>
+            <Button key={i} compact basic inverted color={this.getColor(i)}>
               {data}
             </Button>
           ))}

@@ -42,14 +42,9 @@ export class Home extends Component {
           <Divider inverted />
 
           <Grid.Row>
-            <Grid.Column width={16}>
-              <Header as="h3" inverted color="violet">
-                <Header.Content>Popular Fics</Header.Content>
-                <Header.Subheader className="italic">Month</Header.Subheader>
-              </Header>
+            <Grid.Column>
+              <PopularFics />
             </Grid.Column>
-
-            <PopularFics />
           </Grid.Row>
 
           <Grid.Row>

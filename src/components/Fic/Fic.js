@@ -24,7 +24,11 @@ export default class Fic extends Component {
               <Author data={this.state.fic._author} />
             </Grid.Column>
             <Grid.Column width={12}>
-              <FicDescription data={this.state.fic} />
+              <FicDescription
+                data={this.state.fic}
+                favoritable={true}
+                showGenres={true}
+              />
 
               {this.state.fic._chapters.map(chapter => (
                 <Chapter data={chapter} key={chapter._id} />
