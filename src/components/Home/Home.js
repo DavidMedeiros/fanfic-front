@@ -2,26 +2,16 @@ import React, { Component } from "react";
 
 import "./Home.scss";
 import {
-  Image,
   Header,
   Divider,
-  Icon,
-  Button,
-  Grid,
-  Card
+  Grid
 } from "semantic-ui-react";
 
 import SearchFics from "./SearchFics";
 import PopularFics from "./PopularFics";
 import FicsCategoriesAndGenres from "./FicsCategoriesAndGenres";
 
-const src = "/img/white-image.png";
-
 export class Home extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div>
@@ -42,7 +32,10 @@ export class Home extends Component {
           <Divider inverted />
 
           <Grid.Row>
-            <Grid.Column>
+            <Grid.Column width={16}>
+              <Header as="h3" inverted color="violet">
+                <Header.Content>Popular Fics</Header.Content>
+              </Header>
               <PopularFics />
             </Grid.Column>
           </Grid.Row>

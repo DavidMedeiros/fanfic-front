@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Moment from "moment";
-import { Container, Header, Divider, Label } from "semantic-ui-react";
+import { Container, Header, Divider } from "semantic-ui-react";
 
 import "./Chapter.scss";
 

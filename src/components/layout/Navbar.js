@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Grid, Divider, Menu } from "semantic-ui-react";
-import { Button, Icon, Input } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import "./Navbar.scss";
 
 class Navbar extends Component {

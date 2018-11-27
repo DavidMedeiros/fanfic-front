@@ -235,9 +235,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/profile" component={Profile} />
-              <Route
-                path="/fic"
-                render={props => <Fic data={fic} {...props} />}
+              <Route exact path="/fic/:fic_id" component={Fic} />}
               />
             </Switch>
             <Footer />

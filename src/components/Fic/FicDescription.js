@@ -52,6 +52,11 @@ export default class FicDescription extends Component {
     return genresEl;
   }
 
+  ficTotalLenght(chapters) {
+    let length = 0;
+    length += chapters.map( chapter => chapter.text.length )
+  }
+
   favFic(e, rating) {
     console.log("rating", rating);
     // Do fav fic request

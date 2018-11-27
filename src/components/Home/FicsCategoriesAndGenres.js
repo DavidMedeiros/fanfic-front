@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import "./FicsCategoriesAndGenres.scss";
-import { Loader, Card, Button, Container } from "semantic-ui-react";
+import { Loader, Button, Container } from "semantic-ui-react";
 
 const colors = [
   "red",
@@ -63,17 +62,15 @@ export default class FicsCategoriesAndGenres extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Loader active={this.state.isLoading} inverted />
-        <Container>
-          {this.state.data.map((data, i) => (
-            <Button key={i} compact basic inverted color={this.getColor(i)}>
-              {data}
-            </Button>
-          ))}
-        </Container>
-      </div>
+    return (        
+      <Container>
+      <Loader active={this.state.isLoading} inverted />
+        {this.state.data.map((data, i) => (
+          <Button key={i} compact basic inverted color={this.getColor(i)}>
+            {data}
+          </Button>
+        ))}
+      </Container>
     );
   }
 }
