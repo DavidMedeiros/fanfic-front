@@ -5,7 +5,7 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <div className="full-height">
+  <div>
     <App />
   </div>,
   document.getElementById("root")

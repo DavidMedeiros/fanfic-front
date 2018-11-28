@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Image,
@@ -58,7 +59,7 @@ export default class Author extends Component {
             centered
           />
 
-          <Header as="h4" color="violet" inverted>
+          <Header as={Link} to={ "/profile/" + author.profile_name } size="small" color="violet" inverted>
             {author.profile_name}
           </Header>
 

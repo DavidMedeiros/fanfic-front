@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import API from '../../api';
 
 import "./PopularFics.scss";
-import { Container, Card, Loader } from "semantic-ui-react";
+import { Container, Card, Loader, Icon } from "semantic-ui-react";
 
 export default class PopularFics extends Component {
   constructor() {
@@ -32,6 +32,10 @@ export default class PopularFics extends Component {
     return text.slice(0, size) + (text.length > size ? "..." : "");
   }
 
+  viewsFormatter(views) {
+    return views > 999 ? (views/1000).toFixed(1) + 'k' : views
+  }
+
   handleSortItemClick = (e, { name }) => {
     this.setState({ activeSortItem: name });
   };
@@ -48,19 +52,24 @@ export default class PopularFics extends Component {
           {this.state.data.map(fic => (
             <Card className="dark-card transparent-box violet-shadow" key={fic._id}>
               <Card.Content>
-                <Card.Header as={Link} to={ { pathname: "/fic/" + fic._id, state: { data: fic } } }>
+                <Card.Header as={Link} to={ "/fic/" + fic._id }>
                   {this.limitStringSize(fic.title, 25)}
                 </Card.Header>
                 <Card.Meta>
                   By{" "}
-                  <Link className="author" to="/">
+                  <Link className="author" to={ "/profile/" + fic._author.profile_name }>
                     {fic._author.profile_name}
                   </Link>
                 </Card.Meta>
                 <Card.Description>
                   {this.limitStringSize(fic.synopsis)}
                 </Card.Description>
+                <Card.Content extra>
+                  <Icon name='eye' />
+                  {this.viewsFormatter(fic.views)} views
+                </Card.Content>
               </Card.Content>
+              
             </Card>
           ))}
 
