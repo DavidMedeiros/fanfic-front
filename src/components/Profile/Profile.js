@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import Author from "../Fic/Author";
+import NewFicModal from "./NewFicModal";
+import NewChapterModal from "./NewChapterModal";
 import API from '../../api';
 
 import "./Profile.scss";
-import { Container, Grid, Loader, Menu, Input, Button } from 'semantic-ui-react';
+import { Grid, Loader, Menu, Button, Icon } from 'semantic-ui-react';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -25,15 +27,31 @@ export default class Profile extends Component {
         console.log("get profile", response);
       })
       .catch(error => {
-        console.log("deu ruim", error)
+        console.log(error)
       })
       .finally(() => this.setState({ isLoading: false }));
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+  newComponent() {
+    if (this.state.activeItem === 'fics') {
+      return <NewFicModal />;
+    } else if (this.state.activeItem === 'chapter') {
+      return <NewChapterModal />;
+    }
+  }
+
   render() {
-    const { activeItem } = this.state
+    const { activeItem } = this.state;
+    let newModal = <div></div>;
+
+    if (this.state.activeItem === 'fics') {
+      newModal = <NewFicModal />;
+    } else if (this.state.activeItem === 'chapters') {
+      newModal = <NewChapterModal />;
+    }
+
     if (this.state.isLoading) {
       return <Loader active={this.state.isLoading} inverted />
     } else {
@@ -47,7 +65,7 @@ export default class Profile extends Component {
             </Grid.Column>
 
             <Grid.Column width={12}>
-              <Menu className="no-border" pointing secondary inverted>
+              <Menu className="no-border purple-box" size="small" pointing secondary inverted>
                 <Menu.Item name='fics' active={activeItem === 'fics'} onClick={this.handleItemClick} />
                 <Menu.Item
                   name='chapters'
@@ -60,8 +78,8 @@ export default class Profile extends Component {
                   onClick={this.handleItemClick}
                 />
                 <Menu.Menu position='right'>
-                  <Menu.Item>
-                    <Button>oi</Button>
+                  <Menu.Item name='newFic'>
+                    {newModal}
                   </Menu.Item>
                 </Menu.Menu>
               </Menu>
@@ -69,6 +87,6 @@ export default class Profile extends Component {
           </Grid.Row>
         </Grid>
       </div>
-      )}
+    )}
   }
 }

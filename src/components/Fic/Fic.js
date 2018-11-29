@@ -14,19 +14,17 @@ export default class Fic extends Component {
     this.state = {
       isLoading: true,
       ficId: props.match.params.fic_id,
-      fic: { }
+      fic: {}
     };
-    console.log('fic props', props);
   }
 
   componentDidMount() {
     API.get("/fic/" + this.state.ficId)
       .then(response => {
         this.setState({ fic: response.data });
-        console.log("get fic", response);
       })
       .catch(error => {
-        console.log("deu ruim", error)
+        console.log(error);
       })
       .finally(() => this.setState({ isLoading: false }));
   }
