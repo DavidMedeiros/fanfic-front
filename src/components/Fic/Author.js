@@ -12,6 +12,8 @@ import {
 import "./Author.scss";
 import moment from "moment";
 
+const defaultImage = "/img/square-image.png";
+
 export default class Author extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ export default class Author extends Component {
 
           <Image
             className="author-image"
-            src="https://pbs.twimg.com/profile_images/1046487473478651904/pZgt5qJQ_400x400.jpg"
+            src={ author.profile_pic || defaultImage }
             circular
             size="small"
             centered

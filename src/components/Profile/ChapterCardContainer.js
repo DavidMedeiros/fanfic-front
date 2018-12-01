@@ -1,72 +1,45 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import API from '../../api';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+import Moment from "moment";
 
-import "./PopularFics.scss";
-import { Container, Card, Loader, Icon } from "semantic-ui-react";
+import { Container, Card, Loader, Icon } from 'semantic-ui-react';
+import './ChapterCardContainer.scss';
 
-export default class PopularFics extends Component {
-  constructor() {
-    super();
+export default class ChapterCardContainer extends Component {
+
+  constructor(props) {
+    super(props);
 
     this.state = {
-      isLoading: true,
-      activeSortItem: "month",
-      data: []
-    };
-  }
-
-  componentDidMount() {
-    API.get('/fic/popular?popularity=week')
-      .then(response => {
-        this.setState({ data: response.data.fics });
-        console.log("get popular", response);
-      })
-      .catch(error => {
-        console.log("deu ruim", error)
-      })
-      .finally(() => this.setState({ isLoading: false }));
+      chapters: props.data
+    }
   }
 
   limitStringSize(text, size = 40) {
     return text.slice(0, size) + (text.length > size ? "..." : "");
   }
 
-  viewsFormatter(views) {
-    return views > 999 ? (views/1000).toFixed(1) + 'k' : views
-  }
-
-  handleSortItemClick = (e, { name }) => {
-    this.setState({ activeSortItem: name });
-  };
-
   render() {
-    //let activeSortItem = this.state.activeSortItem;
-
     return (
       <Container>
-        <Loader active={this.state.isLoading} inverted />
 
         <Card.Group stackable centered itemsPerRow={3}>
 
-          {this.state.data.map(fic => (
-            <Card className="dark-card transparent-box violet-shadow" key={fic._id}>
+          {this.state.chapters.map(chapter => (
+            <Card className="dark-card transparent-box violet-shadow" key={chapter._id}>
               <Card.Content>
-                <Card.Header as={Link} to={ "/fic/" + fic._id }>
-                  {this.limitStringSize(fic.title, 25)}
+                <Card.Header>
+                  {this.limitStringSize(chapter.title, 25)}
                 </Card.Header>
                 <Card.Meta>
-                  By{" "}
-                  <Link className="author" to={ "/profile/" + fic._author.profile_name }>
-                    {fic._author.profile_name}
-                  </Link>
+                  Created at{" "}<span>{Moment(chapter.created_at).format("DD/MM/YYYY")}</span>
                 </Card.Meta>
                 <Card.Description>
-                  {this.limitStringSize(fic.synopsis)}
+                  {this.limitStringSize(chapter.text)}
                 </Card.Description>
                 <Card.Content extra>
                   <Icon name='eye' />
-                  {this.viewsFormatter(fic.views)} views
+                  {chapter.text.length} characters
                 </Card.Content>
               </Card.Content>
               
@@ -113,17 +86,8 @@ export default class PopularFics extends Component {
               )}
             />
           </Card>
-
-          <Card
-            className="dark-card transparent-box violet-shadow"
-            header="Jenny Hess"
-            meta="Friend"
-            description={this.limitStringSize(
-              "Jenny is a student studying Media Management at the New School"
-            )}
-          />
         </Card.Group>
       </Container>
-    );
+    )
   }
 }
