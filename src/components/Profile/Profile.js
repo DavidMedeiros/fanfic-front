@@ -35,6 +35,12 @@ export default class Profile extends Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
+  handleNewFic = newFic => {
+    this.setState((state) => ({
+      collections: state.profile._fics.concat(newFic)
+    }));
+  };
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   newItemComponent() {

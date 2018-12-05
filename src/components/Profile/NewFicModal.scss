@@ -1,0 +1,22 @@
+.modal {
+  .button {
+    margin-bottom: 1rem;
+  }
+
+  label:after {
+    color: #9d8cf2 !important;
+  }
+
+  .characterLabel {
+    float: right;
+    font-size: .92857143em;
+    margin-top: -5px;
+  }
+
+  .characterLabelComplete{
+    float: right;
+    font-size: .92857143em;
+    color: #9d8cf2;
+    margin-top: -5px;
+  }
+}
