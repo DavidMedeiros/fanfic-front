@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import API from '../../api';
+import axios from 'axios';
+import { apiUrl } from '../../static/api';
 
 import "./PopularFics.scss";
 import { Container, Card, Loader, Icon } from "semantic-ui-react";
@@ -17,7 +18,7 @@ export default class PopularFics extends Component {
   }
 
   componentDidMount() {
-    API.get('/fic/popular?popularity=week')
+    axios.get(apiUrl + '/fic/popular?popularity=week')
       .then(response => {
         this.setState({ data: response.data.fics.slice(0,15) });
         console.log("get popular", response);

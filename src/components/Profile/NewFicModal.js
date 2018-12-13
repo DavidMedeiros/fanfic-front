@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import API from "../../api";
+import axios from 'axios';
+import { apiUrl } from '../../static/api';
 import { getCategories, getGenres } from '../../static/ficFields';
 
 import './NewFicModal.scss';
@@ -49,7 +50,7 @@ export default class NewFicModal extends Component {
       _author: this.props.userId
     };
 
-    API.post('/fic', fic)
+    axios.post(apiUrl + '/fic', fic)
       .then(response => {
         if (response.status === 200) {
           const { onChange } = this.props;

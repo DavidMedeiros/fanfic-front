@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import {apiUrl} from '../../static/api';
+import { apiUrl } from '../../static/api';
 import axios from 'axios';
 import AuthContainer from "../SignInUp/AuthContainer";
 
@@ -23,7 +23,7 @@ class Navbar extends Component {
 
     this.state = { activeItem: location, loginModal: false, user: {}, userStatus: false };
     this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLoginModal = this.handleLoginModal.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +36,7 @@ class Navbar extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-  handleLogin(open) {
+  handleLoginModal(open) {
     this.setState({ loginModal: open });
   }
 
@@ -53,7 +53,7 @@ class Navbar extends Component {
   render() {
     let login = <div></div>;
     if (this.state.loginModal) {
-      login = <AuthContainer open={this.handleLogin} />
+      login = <AuthContainer open={this.handleLoginModal} />
     }
 
     return (
@@ -104,7 +104,7 @@ class Navbar extends Component {
                 name="Login"
                 color="violet"
                 active={false}
-                onClick={this.handleLogin}
+                onClick={this.handleLoginModal}
               />}
             </Menu>
             {/* <Button icon circular floated="right" primary>

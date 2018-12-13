@@ -5,7 +5,8 @@ import NewChapterModal from "./NewChapterModal";
 import FicCardContainer from "./FicCardContainer";
 import ChapterCardContainer from './ChapterCardContainer';
 import FavFicCardContainer from './FavFicCardContainer';
-import API from '../../api';
+import axios from 'axios';
+import { apiUrl } from '../../static/api';
 
 import "./Profile.scss";
 import { Grid, Loader, Menu, Button } from 'semantic-ui-react';
@@ -26,7 +27,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    API.get("/user/" + this.state.profileName)
+    axios.get(apiUrl + "/user/" + this.state.profileName)
       .then(response => {
         let profile = response.data[0];
         this.setState({ profile: profile, _fics: profile._fics, _chapters: profile._chapters });
