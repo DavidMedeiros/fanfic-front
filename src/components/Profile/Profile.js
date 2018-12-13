@@ -19,6 +19,8 @@ export default class Profile extends Component {
       profileName: props.match.params.profile_name,
       authProfile: false,
       profile: {},
+      _fics: [],
+      _chapters: [],
       activeItem: 'fics'
     }
   }
@@ -26,8 +28,8 @@ export default class Profile extends Component {
   componentDidMount() {
     API.get("/user/" + this.state.profileName)
       .then(response => {
-        this.setState({ profile: response.data[0] });
-        console.log("get profile", response);
+        let profile = response.data[0];
+        this.setState({ profile: profile, _fics: profile._fics, _chapters: profile._chapters });
       })
       .catch(error => {
         console.log(error)
@@ -37,7 +39,13 @@ export default class Profile extends Component {
 
   handleNewFic = newFic => {
     this.setState((state) => ({
-      collections: state.profile._fics.concat(newFic)
+      _fics: state._fics.concat(newFic)
+    }));
+  };
+
+  handleNewChapter = newChapter => {
+    this.setState((state) => ({
+      _chapters: state._chapters.concat(newChapter)
     }));
   };
 
@@ -45,7 +53,7 @@ export default class Profile extends Component {
 
   newItemComponent() {
     if (this.state.activeItem === 'fics') {
-      return <NewFicModal />;
+      return <NewFicModal onChange={this.handleNewFic} userId={this.state.profile} />;
     } else if (this.state.activeItem === 'chapters') {
       return <NewChapterModal />;
     } else {
@@ -55,9 +63,9 @@ export default class Profile extends Component {
 
   itemContainerComponent() {
     if (this.state.activeItem === 'fics') {
-      return <FicCardContainer data={this.state.profile._fics} />;
+      return <FicCardContainer data={this.state._fics} />;
     } else if (this.state.activeItem === 'chapters') {
-      return <ChapterCardContainer data={this.state.profile._chapters} />;
+      return <ChapterCardContainer data={this.state._chapters} />;
     } else if (this.state.activeItem === 'favorites') {
       return <FavFicCardContainer data={this.state.profile.fav_fics} />;
     } else {

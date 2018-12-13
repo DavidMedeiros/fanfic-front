@@ -1,31 +1,34 @@
 import React, { Component } from 'react'
-import axios from 'axios';
 import API from "../../api";
-//const ficStaticData = import('../../static/ficFields');
+import { getCategories, getGenres } from '../../static/ficFields';
 
 import './NewFicModal.scss';
-import { Modal, Button, Form, TextArea } from 'semantic-ui-react';
+import { Modal, Button, Form, TextArea, Loader, Transition, Icon, Container, Header } from 'semantic-ui-react';
 
-const categories = ficStaticData.getCategories();
-const genres = ficStaticData.getGenres();
+const categories = getCategories();
+const genres = getGenres();
 
 export default class NewFicModal extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: false, title: '', synopsis: '', category: '', genres: '', adult: false};
+    this.state = { open: false, submited: false, isLoading: false, ficCreated: false, title: '', synopsis: '', category: '', genres: '', adult: false};
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCreatedTransition = this.handleCreatedTransition.bind(this);
   }
 
-  show = () => this.setState({ open: true });
+  show = () => this.setState({ open: true, submited: false });
   close = () => this.setState({ open: false });
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  resetForm() {
+    this.setState({ title: '', synopsis: '', category: '', genres: '', adult: false});
+  }
+
+  handleInputChange(event, data) {
+    let value = data.value;
+    let name = data.name;
 
     this.setState({
       [name]: value
@@ -35,42 +38,81 @@ export default class NewFicModal extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    this.setState({ submited: true, isLoading: true});
+
     let fic = {
       title: this.state.title.trim(),
       synopsis: this.state.synopsis.trim(),
       category: this.state.category,
-      genres: this.state.genres.split(' '),
-      adult: this.state.adult
+      genres: this.state.genres,
+      adult: this.state.adult,
+      _author: this.props.userId
     };
 
-    console.log("new fic", fic);
+    API.post('/fic', fic)
+      .then(response => {
+        if (response.status === 200) {
+          const { onChange } = this.props;
+          onChange(response.data.result);
+          this.setState({isLoading: false, ficCreated: true})
+        }
+      }).catch(error => {
+        this.setState({isLoading: false, ficCreated: false })
+        console.error('new fic error: ', error);
+      }).finally(() => this.resetForm());
+  }
 
-    // API.post('/api/fic', fic)
-    //   .then(response => {
-    //     if (response.status === 201) {
-    //       const { onChange } = this.props;
-    //       onChange(response.data.data);
-    //     }
-    //   }).catch(error => {
-    //   console.log('new collection error: ');
-    //   console.log(error);
-    // });
-
-    this.close();
+  handleCreatedTransition() {
+    setTimeout(() => {
+      this.close();
+    }, 1500)
   }
 
   render() {
-    const { open } = this.state;
-    const nameLength = this.state.title.trim().length;
-    const descriptionLength = this.state.synopsis.trim().length;
+    let { open } = this.state;
+    let nameLength = this.state.title.trim().length;
+    let descriptionLength = this.state.synopsis.trim().length;
+    let loader = <div></div>;
+
+    if (this.state.isLoading) {
+      loader = (
+        <Container textAlign="center">
+          <Header as="h2" className="loader-text">
+            <Loader active={this.state.isLoading} size="big"/>
+            Creating Fic...
+          </Header>
+        </Container>
+      );
+    }
 
     return (
-      <div>
-        
+      <div>  
         <Button compact floated='right' color="violet" inverted active onClick={this.show}>New Fic</Button>
 
-        <Modal dimmer="blurring" size='small' open={open} onClose={this.close}>
+        <Modal dimmer="inverted" size='small' open={open} onClose={this.close}>
           <Modal.Header>New Fic</Modal.Header>
+          {(this.state.submited) ? 
+          <Modal.Content className="submited">
+            {loader}
+            <Transition visible={(!this.state.isLoading && this.state.ficCreated)} animation='horizontal flip' duration={500} onStart={this.handleCreatedTransition}>
+              <Container textAlign="center">
+                <Header as="h2">
+                  <Icon name='check circle' color="green" />
+                  Fic Created!
+                </Header>
+              </Container>
+            </Transition>
+
+            <Transition visible={!(this.state.isLoading || this.state.ficCreated)} animation='horizontal flip' duration={500} onStart={this.handleCreatedTransition}>
+              <Container textAlign="center">
+                <Header as="h2">
+                  <Icon name='times circle outline' color="red" />
+                  An error ocurred, sorry =(
+                </Header>
+              </Container>
+            </Transition>
+          </Modal.Content>
+          : 
           <Modal.Content>
             <Form onSubmit={this.handleSubmit}>
               <Form.Input required label='Title'  placeholder='Your Fic title' value={this.state.title}
@@ -82,9 +124,9 @@ export default class NewFicModal extends Component {
                           name='synopsis' onChange={this.handleInputChange}/>
               <label className={(descriptionLength < 200) ? 'characterLabel' : 'characterLabelComplete'}>{ descriptionLength + '/200' }</label>
 
-              <Form.Dropdown required value={this.state.category} label="Category" placeholder="Category" fluid selection options={categories}/>
+              <Form.Dropdown required name="category" label="Category" placeholder="Category" fluid selection options={categories} onChange={this.handleInputChange}/>
 
-              <Form.Dropdown required value={this.state.genres} label="Genres" placeholder="Category" fluid multiple selection options={genres}/>
+              <Form.Dropdown required name="genres" label="Genres" placeholder="Genres" fluid multiple selection options={genres} onChange={this.handleInputChange}/>
 
               <Modal.Actions>
                 <Button className='saveNewFic' inverted type='submit' color='violet' floated='right'
@@ -92,7 +134,7 @@ export default class NewFicModal extends Component {
                 <Button floated='right' onClick={this.close}>Cancel</Button>
               </Modal.Actions>
             </Form>
-          </Modal.Content>
+          </Modal.Content>}
         </Modal>
       </div>
     )

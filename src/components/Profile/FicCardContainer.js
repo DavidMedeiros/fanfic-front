@@ -9,10 +9,6 @@ export default class FicCardContainer extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      fics: props.data
-    }
   }
 
   limitStringSize(text, size = 40) {
@@ -27,9 +23,9 @@ export default class FicCardContainer extends Component {
     return (
       <Container className="fic-card-container">
 
-        <Card.Group stackable centered itemsPerRow={3}>
+        <Card.Group stackable itemsPerRow={3}>
 
-          {this.state.fics.map(fic => (
+          {this.props.data.map(fic => (
             <Card className="dark-card transparent-box violet-shadow" key={fic._id} as={Link} to={ "/fic/" + fic._id }>
               <Card.Content>
                 <Card.Header>
@@ -49,47 +45,6 @@ export default class FicCardContainer extends Component {
               
             </Card>
           ))}
-
-          <Card className="dark-card transparent-box violet-shadow">
-            <Card.Content>
-              <Card.Header>
-                {this.limitStringSize("Matthew Harrisssssssssssss", 25)}
-              </Card.Header>
-              <Card.Meta>
-                By{" "}
-                <Link className="author" to="/">
-                  shakepaulinha
-                </Link>
-              </Card.Meta>
-              <Card.Description>
-                {this.limitStringSize(
-                  "Matthew is a pianist living in Nashville."
-                )}
-              </Card.Description>
-            </Card.Content>
-          </Card>
-
-          <Card className="dark-card transparent-box violet-shadow">
-            <Card.Content>
-              <Card.Header content="Jake Smith" />
-              <Card.Meta content="Musicians" />
-              <Card.Description
-                content={this.limitStringSize(
-                  "Jake is a drummer living in New York."
-                )}
-              />
-            </Card.Content>
-          </Card>
-
-          <Card className="dark-card transparent-box violet-shadow">
-            <Card.Content
-              header="Elliot Baker"
-              meta="Friend"
-              description={this.limitStringSize(
-                "Elliot is a music producer living in Chicago."
-              )}
-            />
-          </Card>
         </Card.Group>
       </Container>
     )

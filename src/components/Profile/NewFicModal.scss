@@ -19,4 +19,27 @@
     color: #9d8cf2;
     margin-top: -5px;
   }
+
+  .dropdown {
+    .label {
+      color: #9d8cf2;
+      background-color: floralwhite;
+    }
+  }
+
+  .submited {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .loader-text {
+    color: #9d8cf2 !important;
+    margin-top: 3rem !important;
+  }
+}
+
+
+
+.dimmer.inverted {
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
