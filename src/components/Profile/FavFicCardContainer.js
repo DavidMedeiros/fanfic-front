@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import Moment from "moment";
 
-import { Container, Card, Loader, Icon } from 'semantic-ui-react';
+import { Container, Card, Icon } from 'semantic-ui-react';
 import './FavFicCardContainer.scss';
 
 export default class FavFicCardContainer extends Component {

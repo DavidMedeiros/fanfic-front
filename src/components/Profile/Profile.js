@@ -8,7 +8,7 @@ import FavFicCardContainer from './FavFicCardContainer';
 import API from '../../api';
 
 import "./Profile.scss";
-import { Grid, Loader, Menu, Button, Icon } from 'semantic-ui-react';
+import { Grid, Loader, Menu, Button } from 'semantic-ui-react';
 
 export default class Profile extends Component {
   constructor(props) {

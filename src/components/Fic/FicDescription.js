@@ -55,6 +55,8 @@ export default class FicDescription extends Component {
   ficTotalLenght(chapters) {
     let length = 0;
     length += chapters.map( chapter => chapter.text.length )
+
+    return length;
   }
 
   favFic(e, rating) {
@@ -90,7 +92,7 @@ export default class FicDescription extends Component {
 
           <Label color="violet">
             Length
-            <Label.Detail>1542</Label.Detail>
+            <Label.Detail>{this.ficTotalLenght}</Label.Detail>
           </Label>
           <Label basic color="violet">
             Created at

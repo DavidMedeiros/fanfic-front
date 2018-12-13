@@ -41,7 +41,6 @@ export default class PopularFics extends Component {
   };
 
   render() {
-    //let activeSortItem = this.state.activeSortItem;
 
     return (
       <Container>
