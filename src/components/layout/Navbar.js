@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
+import {apiUrl} from '../../static/api';
+import axios from 'axios';
+import AuthContainer from "../SignInUp/AuthContainer";
+
 import { Grid, Divider, Menu } from "semantic-ui-react";
 import { Button, Icon } from "semantic-ui-react";
 import "./Navbar.scss";
@@ -17,13 +21,41 @@ class Navbar extends Component {
       location = "home";
     }
 
-    this.state = { activeItem: location };
+    this.state = { activeItem: location, loginModal: false, user: {}, userStatus: false };
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(apiUrl + 'auth').then(res => { this.setState({ loggedUser: res.data.user, userStatus: res.data.status }) });
+  }
+
+  componentWillUpdate() {
+    axios.get(apiUrl + 'auth').then(res => { this.setState({ loggedUser: res.data.user, userStatus: res.data.status }) });
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+  handleLogin(open) {
+    this.setState({ loginModal: open });
+  }
+
+  handleLogout() {
+    axios.delete(apiUrl + 'auth')
+      .then(res => { 
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
+    let login = <div></div>;
+    if (this.state.loginModal) {
+      login = <AuthContainer open={this.handleLogin} />
+    }
+
     return (
       <div className="navbar">
         <Grid columns={2}>
@@ -60,17 +92,28 @@ class Navbar extends Component {
                 as={Link}
                 to="/profile"
               />
+              {(this.state.userStatus) ?
               <Menu.Item
                 name="Logout"
                 color="violet"
                 active={false}
-                onClick={this.handleItemClick}
+                onClick={this.handleLogout}
               />
+              :
+              <Menu.Item
+                name="Login"
+                color="violet"
+                active={false}
+                onClick={this.handleLogin}
+              />}
             </Menu>
             {/* <Button icon circular floated="right" primary>
               <Icon name="user" />
             </Button> */}
           </Grid.Column>
+          <Grid.Row>
+            {login}
+          </Grid.Row>
         </Grid>
         <Divider hidden />
       </div>
