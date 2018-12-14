@@ -6,7 +6,12 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 export default class AuthContainer extends Component {
-  state = { open: true }
+
+  constructor(props) {
+    super(props);
+
+    this.state = { open: true }
+  }
 
   show = () => {
     this.setState({ open: true });
@@ -22,7 +27,7 @@ export default class AuthContainer extends Component {
       <Modal open={this.state.open} basic size="small" closeIcon closeOnDimmerClick={true} closeOnEscape={true} onClose={this.close}>
         <Header icon='user' content='Login' />
         <Modal.Content>
-          <SignIn />
+          <SignIn handleLogin={this.props.handleLogin} />
         </Modal.Content>
         {<Modal.Actions>
         </Modal.Actions>}

@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
-import {apiUrl} from '../../static/api';
-import axios from 'axios';
+import { login, getUser } from '../../utils/auth';
 
 import './SignIn.scss';
 import { Button, Form, Input } from 'semantic-ui-react';
 
+
 export default class SignIn extends Component {
-  state = { username: '', password: '', signupSuccess: false }
+
+  constructor(props) {
+    super(props);
+
+    this.state = { username: '', password: '', signupSuccess: false, handleLogin: props.handleLogin }
+  }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
@@ -16,11 +21,12 @@ export default class SignIn extends Component {
       password: this.state.password
     };
 
-    axios.post(apiUrl + 'auth', user)
+    login(user.username, user.password)
       .then(res => {
         if (res.status === 200) {
           this.setState({ signupSuccess: true })
-          axios.get(apiUrl + 'auth').then(res => { console.log(res) })
+          this.state.handleLogin();
+          getUser().then(res => this.state.handleLogin(res.data.user, res.data.status));
         }
       })
 

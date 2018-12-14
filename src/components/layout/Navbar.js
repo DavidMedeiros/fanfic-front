@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import { apiUrl } from '../../static/api';
-import axios from 'axios';
 import AuthContainer from "../SignInUp/AuthContainer";
+import { getUser, logout } from '../../utils/auth';
 
 import { Grid, Divider, Menu } from "semantic-ui-react";
 import { Button, Icon } from "semantic-ui-react";
 import "./Navbar.scss";
+
 
 class Navbar extends Component {
   constructor(props) {
@@ -21,17 +21,25 @@ class Navbar extends Component {
       location = "home";
     }
 
-    this.state = { activeItem: location, loginModal: false, user: {}, userStatus: false };
+    this.state = { activeItem: location, loginModal: false, user: { data: {}, status: false } };
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleLoginModal = this.handleLoginModal.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount() {
-    axios.get(apiUrl + 'auth').then(res => { this.setState({ loggedUser: res.data.user, userStatus: res.data.status }) });
-  }
-
-  componentWillUpdate() {
-    axios.get(apiUrl + 'auth').then(res => { this.setState({ loggedUser: res.data.user, userStatus: res.data.status }) });
+    getUser()
+      .then(res => {
+        if (res.data.status) {
+          this.setState({ user: { data: res.data.user, status: res.data.status }})
+        } else {
+          this.setState({ user: { data: {}, status: false }});
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -40,10 +48,15 @@ class Navbar extends Component {
     this.setState({ loginModal: open });
   }
 
+  handleLogin(user, status) {
+    this.setState({ user: { data: user, status: status }})
+  }
+
   handleLogout() {
-    axios.delete(apiUrl + 'auth')
-      .then(res => { 
-        window.location.reload();
+    logout()
+      .then(res => {
+        this.setState({ user: { data: {}, status: false }});
+        window.location.replace('/')
       })
       .catch(error => {
         console.error(error);
@@ -51,9 +64,11 @@ class Navbar extends Component {
   }
 
   render() {
+    const { getUser } = this.props;
+
     let login = <div></div>;
     if (this.state.loginModal) {
-      login = <AuthContainer open={this.handleLoginModal} />
+      login = <AuthContainer open={this.handleLoginModal} handleLogin={this.handleLogin} />
     }
 
     return (
@@ -92,7 +107,7 @@ class Navbar extends Component {
                 as={Link}
                 to="/profile"
               />
-              {(this.state.userStatus) ?
+              {(this.state.user.status) ?
               <Menu.Item
                 name="Logout"
                 color="violet"

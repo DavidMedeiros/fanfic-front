@@ -11,8 +11,8 @@ import Fic from "./Fic/Fic";
 import Profile from "./Profile/Profile";
 
 class App extends Component {
-  render() {
 
+  render() {
     return (
       <div className="App white-text">
         <BrowserRouter>
