@@ -27,7 +27,7 @@ export default class AuthContainer extends Component {
       <Modal open={this.state.open} basic size="small" closeIcon closeOnDimmerClick={true} closeOnEscape={true} onClose={this.close}>
         <Header icon='user' content='Login' />
         <Modal.Content>
-          <SignIn handleLogin={this.props.handleLogin} />
+          <SignIn handleLogin={this.props.handleLogin} open={this.props.open} />
         </Modal.Content>
         {<Modal.Actions>
         </Modal.Actions>}

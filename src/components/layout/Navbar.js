@@ -5,24 +5,17 @@ import { Link } from "react-router-dom";
 import AuthContainer from "../SignInUp/AuthContainer";
 import { getUser, logout } from '../../utils/auth';
 
-import { Grid, Divider, Menu } from "semantic-ui-react";
+import { Grid, Divider, Menu, Dropdown, Image } from "semantic-ui-react";
 import { Button, Icon } from "semantic-ui-react";
 import "./Navbar.scss";
 
+const defaultImage = "/img/square-image.png";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
 
-    let location = "";
-    if (props.location.pathname === "/profile") {
-      location = "profile";
-    } else if (props.location.pathname === "/") {
-      location = "home";
-    }
-
-    this.state = { activeItem: location, loginModal: false, user: { data: {}, status: false } };
-    this.handleItemClick = this.handleItemClick.bind(this);
+    this.state = { loginModal: false, user: { data: {}, status: false } };
     this.handleLoginModal = this.handleLoginModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -42,8 +35,6 @@ class Navbar extends Component {
       });
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
   handleLoginModal(open) {
     this.setState({ loginModal: open });
   }
@@ -56,7 +47,7 @@ class Navbar extends Component {
     logout()
       .then(res => {
         this.setState({ user: { data: {}, status: false }});
-        window.location.replace('/')
+        window.location.replace('/');
       })
       .catch(error => {
         console.error(error);
@@ -64,12 +55,24 @@ class Navbar extends Component {
   }
 
   render() {
-    const { getUser } = this.props;
-
     let login = <div></div>;
     if (this.state.loginModal) {
       login = <AuthContainer open={this.handleLoginModal} handleLogin={this.handleLogin} />
     }
+
+    let avatar = <div></div>;
+    if (this.state.user.status) {
+      avatar = (
+        <span>
+          <Image avatar src={ this.state.user.data.profile_pic || defaultImage } /> {this.state.user.data.profile_name}
+        </span>
+      )
+    }
+
+    const dropdownMenu = [
+      { key: 'user', text: 'Profile', icon: 'user', as: Link, to: '/profile', selected: false, className: "purple-item" },
+      { key: 'sign-out', text: 'Sign Out', icon: 'sign out', onClick: this.handleLogout, selected: false, className: "purple-item" },
+    ]
 
     return (
       <div className="navbar">
@@ -83,7 +86,6 @@ class Navbar extends Component {
               color="violet"
               as={Link}
               to="/"
-              onClick={this.handleItemClick}
             >
               <Icon name="book" />
               Ficcer
@@ -94,26 +96,11 @@ class Navbar extends Component {
               <Menu.Item
                 name="home"
                 color="violet"
-                active={this.state.activeItem === "home"}
-                onClick={this.handleItemClick}
                 as={Link}
                 to={"/"}
               />
-              <Menu.Item
-                name="profile"
-                color="violet"
-                active={this.state.activeItem === "profile"}
-                onClick={this.handleItemClick}
-                as={Link}
-                to="/profile"
-              />
               {(this.state.user.status) ?
-              <Menu.Item
-                name="Logout"
-                color="violet"
-                active={false}
-                onClick={this.handleLogout}
-              />
+              <Dropdown trigger={avatar} options={dropdownMenu} pointing='top left' icon={null} />
               :
               <Menu.Item
                 name="Login"
@@ -122,9 +109,6 @@ class Navbar extends Component {
                 onClick={this.handleLoginModal}
               />}
             </Menu>
-            {/* <Button icon circular floated="right" primary>
-              <Icon name="user" />
-            </Button> */}
           </Grid.Column>
           <Grid.Row>
             {login}

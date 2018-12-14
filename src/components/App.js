@@ -21,7 +21,8 @@ class App extends Component {
             <div className="full-height">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/profile/:profile_name" component={Profile} />
+                <Route exact path="/profile" key="my-profile" component={Profile} />
+                <Route exact path="/profile/:profile_name" key="user-profile" component={Profile} />
                 <Route exact path="/fic/:fic_id" component={Fic} />
               </Switch>
             </div>

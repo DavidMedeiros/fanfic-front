@@ -1,3 +1,20 @@
 .navbar {
   margin-top: 1rem;
 }
+
+.menu {
+  .dropdown {
+    padding-left: 0.7rem;
+    margin-top: 0.25rem;
+    color: #bdb0ff;
+    font-size: initial;
+  
+    .visible.menu {
+      .item {
+        &.purple-item:hover {
+          color: #594aa9 !important;
+        }
+      }
+    }
+  }
+}

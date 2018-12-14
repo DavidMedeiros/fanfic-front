@@ -10,7 +10,7 @@ export default class SignIn extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username: '', password: '', signupSuccess: false, handleLogin: props.handleLogin }
+    this.state = { username: '', password: '', signupSuccess: false, handleLogin: props.handleLogin, openModal: props.open }
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
@@ -25,10 +25,12 @@ export default class SignIn extends Component {
       .then(res => {
         if (res.status === 200) {
           this.setState({ signupSuccess: true })
-          this.state.handleLogin();
-          getUser().then(res => this.state.handleLogin(res.data.user, res.data.status));
+          getUser().then(res => {
+            this.state.handleLogin(res.data.user, res.data.status);
+            this.state.openModal(false);
+          });
         }
-      })
+      });
 
     this.setState({ username: '', password: '' })
   }
