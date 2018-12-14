@@ -3,7 +3,7 @@ import Author from "./Author";
 import Chapter from "./Chapter";
 import FicDescription from "./FicDescription";
 import axios from 'axios';
-import { apiUrl } from '../../static/api';
+import { ficUrl } from '../../static/api';
 
 import { Grid, Loader } from "semantic-ui-react";
 import "./Fic.scss";
@@ -20,7 +20,7 @@ export default class Fic extends Component {
   }
 
   componentDidMount() {
-    axios.get(apiUrl + "/fic/" + this.state.ficId)
+    axios.get(ficUrl + this.state.ficId)
       .then(response => {
         this.setState({ fic: response.data });
       })
