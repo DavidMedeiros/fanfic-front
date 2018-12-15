@@ -3,13 +3,9 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import { limitStringSize, viewsFormatter } from "../../utils/utilityFunctions";
 import "./FicCardContainer.scss";
-import { Container, Card, Loader, Icon } from "semantic-ui-react";
+import { Container, Card, Icon } from "semantic-ui-react";
 
 export default class FicCardContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Container className="fic-card-container">

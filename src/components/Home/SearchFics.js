@@ -3,7 +3,7 @@ import _ from "lodash";
 import { ficUrl } from "../../static/api";
 import axios from "axios";
 import "./SearchFics.scss";
-import { Search, Label } from "semantic-ui-react";
+import { Search } from "semantic-ui-react";
 
 export default class SearchFics extends Component {
   constructor() {
@@ -12,8 +12,7 @@ export default class SearchFics extends Component {
     this.state = {
       isLoading: false,
       results: [],
-      value: "",
-      hasResults: false
+      value: ""
     };
   }
 
@@ -22,12 +21,10 @@ export default class SearchFics extends Component {
   }
 
   resetSearchComponent = () => {
-    console.log("resetando");
     this.setState({
       isLoading: false,
       results: [],
-      value: "",
-      hasResults: false
+      value: ""
     });
   };
 
@@ -51,15 +48,12 @@ export default class SearchFics extends Component {
       .get(ficUrl + "search?title=" + value)
       .then(response => {
         const fics = response.data.fics;
-        let fic = { title: fics[0].title, description: fics[0].category };
-
         this.setState({
-          results: fics,
-          hasResults: fics.length > 0
+          results: fics
         });
       })
       .catch(error => {
-        this.setState({ results: [], hasResults: [].length > 0 });
+        this.setState({ results: [] });
       })
       .finally(() => {
         this.setState({ isLoading: false });
@@ -67,7 +61,7 @@ export default class SearchFics extends Component {
   };
 
   render() {
-    let { isLoading, value, results, hasResults } = this.state;
+    let { isLoading, value, results } = this.state;
     return (
       <Search
         className="search-box"
