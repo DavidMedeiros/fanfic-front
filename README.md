@@ -26,10 +26,10 @@ A aplicação será executada no endereço: `http://localhost:3000/`
 
 > A api utilizada está hospedada de forma gratuita no Heroku, no primeiro acesso talvez demore um pouco mais, pois a aplicação pode estar "dormindo".
 
-Para autenticação utilize o usuário com as seguintes credenciais: { username: gabrielmla, password: 12302020}
+Para autenticação utilize o usuário com as seguintes credenciais: { username: gabrielmla, password: 12302020 }
 
 ### TO-DO
 
 - SignUp component
-- Mark a Fic favorite
-- Create a Chapter
+- Mark a Fic as favorite
+- Create Chapter Modal
