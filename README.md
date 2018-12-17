@@ -28,6 +28,12 @@ A aplicação será executada no endereço: `http://localhost:3000/`
 
 Para autenticação utilize o usuário com as seguintes credenciais: { username: gabrielmla, password: 12302020 }
 
+##### Testes
+
+```
+$ npm test
+```
+
 ### TO-DO
 
 - SignUp component

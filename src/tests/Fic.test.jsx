@@ -100,6 +100,10 @@ FicComponent.setState({
   isLoading: false
 });
 
+let ChapterComponent = shallow(<Chapter data={fic._chapters[0]} />);
+
+let FicDescriptionComponent = shallow(<FicDescription data={fic} favoritable={true} showGenres={true} />);
+
 it("always renders a div with fic css class", () => {
   expect(FicComponent.find("div.fic").length).toBe(1);
 });
@@ -117,18 +121,13 @@ it("always renders an Fic Description", () => {
   expect(FicComponent.find(FicDescription).length).toBe(1);
 });
 
-it("always renders an Fic Description", () => {
-  expect(FicComponent.find(FicDescription).find(".div.header").length).toBe(1);
-});
-
 it("always renders the Fic Title on the Fic Description Component", () => {
   expect(
-    FicComponent.find(FicDescription)
-      .find(".header")
+    FicDescriptionComponent.find("Header")
       .first()
       .dive()
       .text()
-  ).toEqual(fic.title);
+  ).toEqual(fic.title +  "<Rating /><Statistic />");
 });
 
 it("renders Chapters if the Fic has at least one", () => {
@@ -137,9 +136,16 @@ it("renders Chapters if the Fic has at least one", () => {
 
 it("always renders an Chapter title", () => {
   expect(
-    FicComponent.find(".Chapter.p")
-      .first()
-      .dive()
+    ChapterComponent.find("Header")
+    .first()
+    .dive()
+    .text()
+  ).toEqual(fic._chapters[0].title);
+});
+
+it("always renders an Chapter text", () => {
+  expect(
+    ChapterComponent.find("p")
       .text()
   ).toEqual(fic._chapters[0].text);
 });
