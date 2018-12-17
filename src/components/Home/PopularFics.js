@@ -22,10 +22,9 @@ export default class PopularFics extends Component {
       .get(ficUrl + "popular?popularity=week")
       .then(response => {
         this.setState({ data: response.data.fics.slice(0, 15) });
-        console.log("get popular", response);
       })
       .catch(error => {
-        console.log("deu ruim", error);
+        console.error(error);
       })
       .finally(() => this.setState({ isLoading: false }));
   }

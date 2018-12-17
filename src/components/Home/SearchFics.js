@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+
 import _ from "lodash";
 import { ficUrl } from "../../static/api";
 import axios from "axios";
 import "./SearchFics.scss";
 import { Search } from "semantic-ui-react";
 
-export default class SearchFics extends Component {
+class SearchFics extends Component {
   constructor() {
     super();
 
@@ -31,6 +34,8 @@ export default class SearchFics extends Component {
   handleResultSelect = (e, { result }) =>
     this.setState({
       value: result.title
+    }, () => {
+      this.props.history.push('fic/' + result._id, null);
     });
 
   handleSearchChange = (e, { value }) => {
@@ -79,3 +84,5 @@ export default class SearchFics extends Component {
     );
   }
 }
+
+export default withRouter(SearchFics);
